@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distance Matrix API with Autocomplete</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_API_KEY&libraries=places"></script>
+    <script>
+        let autocompleteOrigin, autocompleteDestination;
+
+        function initAutocomplete() {
+            // Initialize autocomplete for origin and destination inputs
+            const originInput = document.getElementById("origin");
+            const destinationInput = document.getElementById("destination");
+
+            autocompleteOrigin = new google.maps.places.Autocomplete(originInput);
+            autocompleteDestination = new google.maps.places.Autocomplete(destinationInput);
+        }
+
+        async function fetchDistance() {
+            // Get user inputs
+            const origin = document.getElementById("origin").value;
+            const destination = document.getElementById("destination").value;
+            const apiKey = "XxRuLOM4vIx3Cs9mlLmZa8O0Kxm2KfSsRtwSqhp0z0G20E3Jmv2ZLfTPjKFDrdaZ";
+
+            if (!origin || !destination) {
+                alert("Please enter both origin and destination.");
+                return;
+            }
+
+            // API URL
+            const url = `https://api.distancematrix.ai/maps/api/distancematrix/json?origins=${encodeURIComponent(
+                origin
+            )}&destinations=${encodeURIComponent(destination)}&key=${apiKey}`;
+
+            try {
+                // Fetch data from API
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch data from API");
+                }
+
+                // Parse JSON response
+                const data = await response.json();
+
+                // Display JSON response
+                document.getElementById("result").textContent = JSON.stringify(data, null, 4);
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred while fetching the data.");
+            }
+        }
+    </script>
+</head>
+<body onload="initAutocomplete()">
+    <h1>Distance Matrix API with Autocomplete</h1>
+    <form onsubmit="event.preventDefault(); fetchDistance();">
+        <label for="origin">Origin:</label>
+        <input type="text" id="origin" name="origin" placeholder="Enter origin location" required>
+        <br><br>
+        <label for="destination">Destination:</label>
+        <input type="text" id="destination" name="destination" placeholder="Enter destination location" required>
+        <br><br>
+        <button type="submit">Get Distance</button>
+    </form>
+    <h2>API Response:</h2>
+    <pre id="result" style="background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd;"></pre>
+</body>
+</html>
