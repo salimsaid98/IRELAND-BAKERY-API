@@ -1,9 +1,11 @@
 package com.example.api_bakery.Roles;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +32,10 @@ public class RoleController {
         return roleServices.getAllRoles();
     }
     
-   
+   @GetMapping("/getRoleNameByAppUserId/{app_user_id}")
+    public List<Map<String,Object>> getRoleNameByAppUserId(@PathVariable Long app_user_id) {
+        return roleServices.findRoleNameByAppUserId(app_user_id);
+    }
 
 
 

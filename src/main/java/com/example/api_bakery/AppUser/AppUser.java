@@ -18,5 +18,6 @@ public class AppUser {
     @Column(unique = true)
     private String username;    
     private String password;
+    private Long role_id;
     
 }

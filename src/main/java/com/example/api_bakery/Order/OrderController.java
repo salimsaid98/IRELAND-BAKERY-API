@@ -3,7 +3,6 @@ package com.example.api_bakery.Order;
 import java.util.List;
 import java.util.Map;
 
-import javax.websocket.server.PathParam;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -62,8 +61,8 @@ public class OrderController {
     }
 
 @GetMapping("/orderbycustomer_id/{customer_id}")
-    public ResponseEntity<List<Order>> getOrdersByCustomerId(@PathVariable Long customer_id) {
-        List<Order> orders = orderServices.getOrdersByCustomerId(customer_id);
+    public ResponseEntity<List<Map<String,Object>>> getOrdersByCustomerId(@PathVariable Long customer_id) {
+        List<Map<String,Object>> orders = orderServices.getOrdersByCustomerId(customer_id);
         return new ResponseEntity<>(orders, org.springframework.http.HttpStatus.OK);
     }
 

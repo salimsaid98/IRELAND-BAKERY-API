@@ -41,7 +41,7 @@ public class OrderServices {
     public java.util.List<Order> getAllOrders() {
         return orderRepo.findAll();
     }
-    public java.util.List<Order> getOrdersByCustomerId(Long customer_id) {
+    public List<Map<String,Object>> getOrdersByCustomerId(Long customer_id) {
         return orderRepo.findByCustomerId(customer_id);
     }
 

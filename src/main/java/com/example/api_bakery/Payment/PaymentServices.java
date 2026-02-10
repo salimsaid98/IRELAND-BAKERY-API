@@ -1,6 +1,7 @@
 package com.example.api_bakery.Payment;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +40,7 @@ public class PaymentServices {
         }
         return null;
     }
- public List<Payment> getPaymentsByAppUserId(Long app_user_id) {
+ public List<Map<String,Object>> getPaymentsByAppUserId(Long app_user_id) {
         return paymentRepo.findPaymentsByCustomerId(app_user_id);
     }   
 

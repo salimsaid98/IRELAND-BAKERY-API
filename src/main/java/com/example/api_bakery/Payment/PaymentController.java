@@ -1,5 +1,8 @@
 package com.example.api_bakery.Payment;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -59,8 +62,8 @@ public class PaymentController {
     }
         
     @GetMapping("/paymentsByAppUser/{customer_id}")
-    public ResponseEntity<java.util.List<Payment>> getPaymentsByAppUserId(@PathVariable Long customer_id) {
-        java.util.List<Payment> payments = paymentServices.getPaymentsByAppUserId(customer_id);
+    public ResponseEntity<List<Map<String,Object>>> getPaymentsByAppUserId(@PathVariable Long customer_id) {
+        java.util.List<Map<String,Object>> payments = paymentServices.getPaymentsByAppUserId(customer_id);
         return ResponseEntity.ok(payments);
     }   
 

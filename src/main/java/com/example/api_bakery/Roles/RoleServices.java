@@ -1,6 +1,7 @@
 package com.example.api_bakery.Roles;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Map;
 @Service
 public class RoleServices {
     private final RoleRepo roleRepo;
@@ -31,5 +32,7 @@ public class RoleServices {
     public void deleteRole(Long roleId) {
         roleRepo.deleteById(roleId); // Delete the role by ID
     }
-   
+   public List<Map<String,Object>> findRoleNameByAppUserId(Long app_user_id) {
+        return roleRepo.findRoleNameByAppUserId(app_user_id);
+    }
 }
