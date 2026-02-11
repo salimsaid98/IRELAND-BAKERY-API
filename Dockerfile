@@ -1,18 +1,33 @@
-# ---------- Build Stage ----------
-FROM maven:3.9.9-eclipse-temurin-17 AS build
-WORKDIR /app
+# Use a base image that includes JDK
+# FROM openjdk:17-jdk-alpine
 
-COPY pom.xml .
-RUN mvn dependency:go-offline
+# # Set the working directory inside the container
+# WORKDIR /app
 
-COPY src ./src
-RUN mvn clean package -DskipTests
+# # Copy the packaged jar file into the container
+# COPY target/*.jar app.jar
 
-# ---------- Runtime Stage ----------
-FROM eclipse-temurin:17-jre
-WORKDIR /app
+# # Expose the port your application runs on
+# EXPOSE 8080
 
-COPY --from=build /app/target/*.jar app.jar
+# # Set the entry point for the container to run your jar file
+# ENTRYPOINT ["java", "-jar", "app.jar"]
 
+# Use the official OpenJDK image as a base
+FROM eclipse-temurin:17-jdk
+
+# Add a volume pointing to /tmp
+VOLUME /tmp
+
+# The application's jar file
+ARG JAR_FILE=target/api-bakery-0.0.1-SNAPSHOT.jar
+
+# Copy the jar file to the container
+COPY ${JAR_FILE} app.jar
+
+# Expose port 8080
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+# Run the jar file
+ENTRYPOINT ["java","-jar","/app.jar"]
+
